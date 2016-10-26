@@ -1,11 +1,12 @@
 #!/bin/bash
+interface=$1
 sspath=$(which ssserver)
 if [[ "" == $sspath ]]; then
   echo "installing shadowsocks..." 
   /usr/bin/pip install shadowsocks -q
 fi
 
-ip=$(ifconfig | grep -A 1 "eth1" | grep -v eth1 | cut -d':' -f2 | cut -d' ' -f1)
+ip=$(ifconfig | grep -A 1 "$interface" | grep -v $interface | cut -d':' -f2 | cut -d' ' -f1)
 echo "ip is: $ip"
 
 echo '{
