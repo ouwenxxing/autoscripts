@@ -7,7 +7,7 @@ do
 done
 cat /root/ss_config/shadowsocks.json.tmp > /etc/shadowsocks.json
 rm /root/ss_config/shadowsocks.json.tmp
-pid=$(ps -aux | grep ssserver | grep -v grep | cut -d' ' -f7)
+pid=$(ps -aux | grep ssserver | grep -v grep | cut -d' ' -f6,7)
 if [[ "" != $pid ]]; then
   echo "ssserver id is: $pid, killing it..."
   kill $pid

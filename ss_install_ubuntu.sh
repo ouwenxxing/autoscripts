@@ -1,5 +1,6 @@
 #!/bin/bash
 interface=$1
+passwd=$2
 sspath=$(which ssserver)
 if [[ "" == $sspath ]]; then
   echo "installing shadowsocks..." 
@@ -12,11 +13,12 @@ echo "ip is: $ip"
 echo '{
     "server": "'$ip'",
     "port_password": {
-        "8888": "alivps"
+        "8889": "'$passwd'"
     },
     "timeout": 300,
     "method": "aes-256-cfb"
 }' > /etc/shadowsocks.json
+/bin/cp -f /etc/shadowsocks.json /root/ss_config/shadowsocks.json.template
 
 pid=$(ps -aux | grep ssserver | grep -v grep | cut -d' ' -f7)
 if [[ "" != $pid ]]; then 
