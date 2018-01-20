@@ -1,6 +1,22 @@
 #!/bin/bash
-interface=$1
-passwd=$2
+usage() { echo "ss_install_ubuntu.sh -i <interface> -p <password>"; exit 1; }
+
+while getopts "i:p:" opt; do
+  case $opt in
+    i)
+      interface=$OPTARG;;
+    p)
+      passwd=$OPTARG;;
+    *)
+      echo "Invalid option: -$OPTARG"
+      usage
+      ;;
+  esac
+done
+if [ -z "$interface" ] || [ -z "$passwd" ]; then
+  usage
+fi
+
 sspath=$(which ssserver)
 if [[ "" == $sspath ]]; then
   echo "installing shadowsocks..." 
